@@ -47,7 +47,12 @@ export default function ClueScreen({
     <main className="screen clue-screen">
       <section className="paper-panel">
         <div className="top-row">
-          <span className="stamp">FIELD STUDY</span>
+          <img
+            src="/img/logo-municipio.png"
+            alt="Municipio de Olavarría"
+            className="municipio-logo"
+          />
+
           <span className="progress">
             Pista {pistaActual + 1} de {totalPistas}
           </span>
@@ -69,7 +74,7 @@ export default function ClueScreen({
               value={respuesta}
               onChange={(e) => setRespuesta(e.target.value)}
               placeholder="Escribí tu respuesta"
-              autoFocus
+              inputMode="numeric"
             />
 
             <button className="primary-btn" type="submit">
