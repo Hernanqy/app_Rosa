@@ -1,0 +1,581 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --paper: #f4ead2;
+  --ink: #2b2118;
+  --muted: #6f604c;
+  --brown: #7a4d2b;
+  --dark-brown: #3d2a1d;
+  --green: #566f4f;
+  --red: #9b2f27;
+  --yellow: #d2a84d;
+  --shadow: rgba(43, 33, 24, 0.24);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  background: #514f4a;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.screen {
+  min-height: 100vh;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-shell {
+  width: min(100%, 560px);
+  display: grid;
+  gap: 18px;
+}
+
+.old-folder,
+.paper-panel {
+  width: min(100%, 520px);
+  position: relative;
+  background:
+    linear-gradient(rgba(255, 248, 230, 0.72), rgba(255, 248, 230, 0.72)),
+    url("/img/background-rosa.png") center center / cover no-repeat;
+  border: 2px solid rgba(72, 51, 34, 0.35);
+  border-radius: 20px;
+  padding: 26px 20px;
+  box-shadow: 0 18px 38px var(--shadow);
+  overflow: hidden;
+}
+
+.old-folder::before,
+.paper-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 14%, rgba(80, 60, 38, 0.08), transparent 24%),
+    radial-gradient(circle at 88% 84%, rgba(80, 60, 38, 0.08), transparent 22%);
+  pointer-events: none;
+}
+
+.date-stamp {
+  width: fit-content;
+  margin-left: auto;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border: 2px dashed var(--dark-brown);
+  transform: rotate(-2deg);
+  font-family: "Special Elite", serif;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.22);
+  position: relative;
+  z-index: 1;
+}
+
+.title-card {
+  position: relative;
+  z-index: 1;
+  border: 2px solid #c77d6f;
+  background: rgba(255, 248, 228, 0.72);
+  text-align: center;
+  padding: 22px 14px;
+  margin-bottom: 20px;
+}
+
+.mini-label {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+}
+
+h1,
+h2 {
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Special Elite", serif;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1.05;
+}
+
+h2 {
+  margin: 8px 0 0;
+  font-family: "Special Elite", serif;
+  font-size: 1rem;
+  color: var(--brown);
+}
+
+.intro-text,
+.clue-text,
+.question-card,
+.rules-box,
+.sabias-box,
+.error-box,
+.hint-box,
+.code-box,
+.mission-list {
+  position: relative;
+  z-index: 1;
+}
+
+.intro-text {
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+.rules-box {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rules-box div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.42);
+  border-left: 5px solid var(--green);
+  box-shadow: 0 4px 12px rgba(68, 45, 28, 0.1);
+}
+
+.rules-box strong {
+  color: var(--dark-brown);
+}
+
+.rules-box span {
+  color: var(--brown);
+  text-align: right;
+}
+
+.primary-btn {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border: 0;
+  background: var(--dark-brown);
+  color: #fff8e5;
+  border-radius: 999px;
+  padding: 15px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(43, 33, 24, 0.28);
+}
+
+.primary-btn:hover {
+  filter: brightness(1.06);
+}
+
+.top-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.stamp {
+  display: inline-block;
+  border: 2px solid var(--brown);
+  color: var(--brown);
+  font-family: "Special Elite", serif;
+  padding: 7px 10px 5px;
+  transform: rotate(-3deg);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.green-stamp {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.red-stamp {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.progress {
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.clue-screen h1,
+.success-screen h1,
+.gameover-screen h1,
+.final-screen h1 {
+  font-size: clamp(1.9rem, 7vw, 2.6rem);
+  margin-bottom: 8px;
+}
+
+.clue-text {
+  margin: 22px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.42);
+  border-left: 5px solid var(--yellow);
+  line-height: 1.6;
+  border-radius: 12px;
+}
+
+.question-card {
+  padding: 16px;
+  background: rgba(86, 111, 79, 0.14);
+  border: 1px solid rgba(86, 111, 79, 0.32);
+  border-radius: 14px;
+}
+
+.question-card p {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  border: 2px solid rgba(61, 42, 29, 0.35);
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  color: var(--ink);
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--green);
+}
+
+.error-box {
+  margin-top: 16px;
+  border-left: 5px solid var(--red);
+  background: rgba(155, 47, 39, 0.14);
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+.error-box p {
+  margin: 6px 0 0;
+}
+
+.hint-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.38);
+  border-radius: 10px;
+}
+
+.hint-box summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--brown);
+}
+
+.success-panel,
+.gameover-panel {
+  text-align: center;
+}
+
+.big-number {
+  font-size: 1.2rem;
+}
+
+.big-number strong {
+  font-size: 3.4rem;
+  display: block;
+  font-family: "Special Elite", serif;
+  color: var(--green);
+  margin-top: 8px;
+}
+
+.sabias-box {
+  text-align: left;
+  margin: 22px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.42);
+  border-radius: 14px;
+  border-left: 5px solid var(--green);
+  line-height: 1.55;
+}
+
+.sabias-box h2 {
+  margin-top: 0;
+}
+
+.gameover-panel p,
+.final-folder p {
+  position: relative;
+  z-index: 1;
+  line-height: 1.6;
+}
+
+.gameover-panel h1 {
+  color: var(--red);
+}
+
+.code-box {
+  margin: 24px 0;
+  padding: 18px;
+  background: rgba(61, 42, 29, 0.9);
+  color: #fff8e5;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.code-box span {
+  display: block;
+  font-weight: 700;
+  color: #e6d7b4;
+}
+
+.code-box strong {
+  display: block;
+  margin-top: 8px;
+  font-family: "Special Elite", serif;
+  font-size: 3.8rem;
+  letter-spacing: 0.18em;
+}
+
+.hero-image-box,
+.timer-visual-box,
+.tags-visual-box {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 35px var(--shadow);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.hero-image,
+.timer-visual,
+.tags-visual {
+  width: 100%;
+  height: auto;
+}
+
+.section-heading {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin: 10px 0 0;
+  font-family: "Special Elite", serif;
+  font-size: 1.5rem;
+  color: var(--dark-brown);
+}
+
+.mission-list {
+  display: grid;
+  gap: 12px;
+}
+
+.mission-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.mission-item p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.mission-number {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--dark-brown);
+  color: #fff8e5;
+  font-weight: 800;
+}
+
+@media (max-width: 380px) {
+  .screen {
+    padding: 12px;
+  }
+
+  .old-folder,
+  .paper-panel {
+    padding: 22px 16px;
+    border-radius: 16px;
+  }
+
+  .rules-box div {
+    flex-direction: column;
+  }
+
+  .rules-box span {
+    text-align: left;
+  }
+
+  .section-heading h2 {
+    font-size: 1.3rem;
+  }
+}
+
+.timer-app-box {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 12px;
+}
+
+.timer-app-img {
+  width: min(78%, 260px);
+  height: auto;
+  filter: drop-shadow(0 8px 14px rgba(43, 33, 24, 0.22));
+}
+
+.rule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.rule-item-timer {
+  align-items: center;
+}
+
+.rule-icon-img {
+  width: 54px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.hero-rosa-box {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 22px;
+}
+
+.hero-rosa-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(43, 33, 24, 0.24));
+}
+
+.rule-icon-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 7px rgba(43, 33, 24, 0.22));
+}
+
+.rule-icon-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 7px rgba(43, 33, 24, 0.22));
+}
+.rules-box {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rule-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  min-height: 84px;
+  border-left: 5px solid #6b8a63;
+  border-radius: 10px;
+  background:
+    linear-gradient(rgba(255, 252, 244, 0.92), rgba(248, 241, 226, 0.92)),
+    url("/img/background-rosa.png") center center / cover no-repeat;
+  box-shadow:
+    0 4px 12px rgba(68, 45, 28, 0.10),
+    inset 0 0 0 1px rgba(140, 109, 72, 0.18);
+  overflow: hidden;
+}
+
+.rule-item::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(160, 128, 92, 0.18);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.rule-item::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  width: 70px;
+  height: 70px;
+  background: url("/img/background-rosa.png") center center / cover no-repeat;
+  opacity: 0.10;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.rule-item span {
+  position: relative;
+  z-index: 1;
+  color: #8a5429;
+  font-size: 0.98rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+.rule-item strong {
+  position: relative;
+  z-index: 1;
+  color: #3d2a1d;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.rule-icon-img {
+  position: relative;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 7px rgba(43, 33, 24, 0.20));
+  flex-shrink: 0;
+}
