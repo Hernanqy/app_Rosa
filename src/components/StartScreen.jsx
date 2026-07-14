@@ -44,24 +44,6 @@ export default function StartScreen({ onStart, onRepeatIntro }) {
             />
             <span>15 minutos</span>
           </div>
-
-          <div className="rule-item">
-            <img
-              src="/img/icon-oportunidades.png"
-              alt="Oportunidades"
-              className="rule-icon-img"
-            />
-            <span>2 por acertijo</span>
-          </div>
-
-          <div className="rule-item">
-            <img
-              src="/img/icon-objetivo.png"
-              alt="Objetivo"
-              className="rule-icon-img"
-            />
-            <span>Descubrir el código final</span>
-          </div>
         </div>
 
         <button className="primary-btn" onClick={onStart}>
