@@ -3,6 +3,7 @@
 export default function ClueScreen({
   pista,
   onCorrectAnswer,
+  onIncorrectAnswer,
   onGameOver,
   pistaActual,
   totalPistas,
@@ -40,11 +41,15 @@ export default function ClueScreen({
       return;
     }
 
+    onIncorrectAnswer();
+
     const nuevosIntentos = intentos + 1;
     setIntentos(nuevosIntentos);
 
     if (nuevosIntentos >= maxIntentos) {
-      onGameOver();
+      setTimeout(() => {
+        onGameOver();
+      }, 500);
       return;
     }
 

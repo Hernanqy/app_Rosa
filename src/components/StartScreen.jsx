@@ -1,6 +1,6 @@
 ﻿import React from "react";
 
-export default function StartScreen({ onStart }) {
+export default function StartScreen({ onStart, onRepeatIntro }) {
   return (
     <main className="screen start-screen">
       <section className="old-folder">
@@ -31,6 +31,10 @@ export default function StartScreen({ onStart }) {
           </p>
         </div>
 
+        <button className="audio-btn" onClick={onRepeatIntro}>
+          Repetir introducción
+        </button>
+
         <div className="rules-box">
           <div className="rule-item">
             <img
@@ -38,7 +42,7 @@ export default function StartScreen({ onStart }) {
               alt="Tiempo"
               className="rule-icon-img"
             />
-            <span>20 minutos</span>
+            <span>15 minutos</span>
           </div>
 
           <div className="rule-item">
@@ -67,5 +71,3 @@ export default function StartScreen({ onStart }) {
     </main>
   );
 }
-
-

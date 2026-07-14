@@ -25,17 +25,18 @@ export default function App() {
   const musicaIntroRef = useRef(null);
   const fondoJuegoRef = useRef(null);
   const audioActualRef = useRef(null);
+  const efectoAudioRef = useRef(null);
 
   const pista = pistas[pistaActual];
 
   useEffect(() => {
     musicaIntroRef.current = new Audio("/audio/musica-intro.mp3");
     musicaIntroRef.current.loop = true;
-    musicaIntroRef.current.volume = 0.28;
+    musicaIntroRef.current.volume = 0.25;
 
     fondoJuegoRef.current = new Audio("/audio/fondo-juego.mp3");
     fondoJuegoRef.current.loop = true;
-    fondoJuegoRef.current.volume = 0.22;
+    fondoJuegoRef.current.volume = 0.12;
 
     reproducirMusicaIntro();
 
@@ -103,11 +104,19 @@ export default function App() {
     audioActualRef.current = null;
   }
 
+  function detenerEfectoAudio() {
+    if (!efectoAudioRef.current) return;
+
+    efectoAudioRef.current.pause();
+    efectoAudioRef.current.currentTime = 0;
+    efectoAudioRef.current = null;
+  }
+
   function reproducirAudio(ruta) {
     detenerAudioActual();
 
     const audio = new Audio(ruta);
-    audio.volume = 0.95;
+    audio.volume = 1;
     audioActualRef.current = audio;
 
     audio.play().catch((error) => {
@@ -115,10 +124,23 @@ export default function App() {
     });
   }
 
+  function reproducirEfecto(ruta) {
+    detenerEfectoAudio();
+
+    const audio = new Audio(ruta);
+    audio.volume = 0.85;
+    efectoAudioRef.current = audio;
+
+    audio.play().catch((error) => {
+      console.log("No se pudo reproducir el efecto:", ruta, error);
+    });
+  }
+
   function detenerTodosLosAudios() {
     detenerMusicaIntro();
     detenerFondoJuego();
     detenerAudioActual();
+    detenerEfectoAudio();
   }
 
   function entrarPresentacion() {
@@ -131,6 +153,10 @@ export default function App() {
     setCodigoEncontrado([]);
     setSegundosRestantes(TIEMPO_TOTAL_SEGUNDOS);
     setTimerActivo(false);
+  }
+
+  function repetirIntro() {
+    reproducirAudio("/audio/intro.wav");
   }
 
   function iniciarJuego() {
@@ -146,9 +172,17 @@ export default function App() {
   }
 
   function respuestaCorrecta() {
-    detenerAudioActual();
-    setCodigoEncontrado((prev) => [...prev, pista.respuestaCorrecta]);
-    setPantalla("exito");
+    reproducirEfecto("/audio/exito.wav");
+
+    setTimeout(() => {
+      detenerAudioActual();
+      setCodigoEncontrado((prev) => [...prev, pista.respuestaCorrecta]);
+      setPantalla("exito");
+    }, 350);
+  }
+
+  function respuestaIncorrecta() {
+    reproducirEfecto("/audio/reintento.wav");
   }
 
   function pasarSiguiente() {
@@ -202,7 +236,9 @@ export default function App() {
     <>
       {pantalla === "home" && <HomeScreen onEnter={entrarPresentacion} />}
 
-      {pantalla === "inicio" && <StartScreen onStart={iniciarJuego} />}
+      {pantalla === "inicio" && (
+        <StartScreen onStart={iniciarJuego} onRepeatIntro={repetirIntro} />
+      )}
 
       {pantalla === "pista" && (
         <ClueScreen
@@ -211,6 +247,7 @@ export default function App() {
           totalPistas={pistas.length}
           segundosRestantes={segundosRestantes}
           onCorrectAnswer={respuestaCorrecta}
+          onIncorrectAnswer={respuestaIncorrecta}
           onGameOver={finalizarPorError}
           onRepeatAudio={repetirAudioPista}
         />
