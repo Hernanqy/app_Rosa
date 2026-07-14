@@ -12,8 +12,8 @@ export default function FinalScreen({ codigoFinal, onRestart }) {
         </div>
 
         <p>
-          Han demostrado tener el instinto de verdaderos naturalistas. Ahora que
-          descifraron los secretos de Rosa, solo queda un último paso.
+          Felicitaciones. Han descifrado los secretos de la Habitación de Rosa.
+          Ahora tienen el código final.
         </p>
 
         <div className="code-box">
@@ -22,8 +22,8 @@ export default function FinalScreen({ codigoFinal, onRestart }) {
         </div>
 
         <p>
-          Ingresen estos 4 dígitos en el candado, respetando el orden de los
-          desafíos.
+          Usen estos 4 dígitos en el candado de la valija de Rosa, respetando el
+          orden de los desafíos.
         </p>
 
         <button className="primary-btn" onClick={onRestart}>

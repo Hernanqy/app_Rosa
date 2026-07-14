@@ -61,9 +61,11 @@ export default function StartScreen({ onStart }) {
         </div>
 
         <button className="primary-btn" onClick={onStart}>
-          Comenzar la primera pista
+          Comenzar primera pista
         </button>
       </section>
     </main>
   );
 }
+
+

@@ -589,3 +589,84 @@ input:focus {
   display: block;
   filter: drop-shadow(0 3px 5px rgba(43, 33, 24, 0.18));
 }
+
+.active-timer-box {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  background: rgba(255, 252, 244, 0.82);
+  border: 1px solid rgba(122, 77, 43, 0.28);
+  box-shadow: 0 6px 14px rgba(43, 33, 24, 0.16);
+}
+
+.active-timer-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  display: block;
+}
+
+.active-timer-box span {
+  font-family: "Special Elite", serif;
+  font-size: 1.25rem;
+  color: #7a2f25;
+  font-weight: 800;
+  min-width: 70px;
+  text-align: center;
+}
+
+.timeover-screen h1 {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.home-folder {
+  display: grid;
+  gap: 22px;
+  align-content: center;
+  min-height: 70vh;
+}
+
+.home-hero {
+  margin-bottom: 0;
+}
+
+.home-intro {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--dark-brown);
+  padding: 0 8px;
+}
+
+.home-intro p {
+  margin: 0;
+}
+
+.audio-btn {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border: 1px solid rgba(122, 77, 43, 0.35);
+  background: rgba(255, 252, 244, 0.72);
+  color: var(--brown);
+  border-radius: 999px;
+  padding: 11px 14px;
+  margin: 14px 0 4px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(43, 33, 24, 0.12);
+}
+
+.audio-btn:hover {
+  filter: brightness(1.04);
+}
