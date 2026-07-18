@@ -136,6 +136,31 @@ export default function App() {
     });
   }
 
+  function reproducirSecuenciaEfectos(rutas, volumen = 1) {
+    detenerEfectoAudio();
+
+    let indice = 0;
+
+    function reproducirSiguiente() {
+      if (indice >= rutas.length) return;
+
+      const audio = new Audio(rutas[indice]);
+      audio.volume = volumen;
+      efectoAudioRef.current = audio;
+
+      audio.onended = () => {
+        indice += 1;
+        reproducirSiguiente();
+      };
+
+      audio.play().catch((error) => {
+        console.log("No se pudo reproducir el efecto:", rutas[indice], error);
+      });
+    }
+
+    reproducirSiguiente();
+  }
+
   function detenerTodosLosAudios() {
     detenerMusicaIntro();
     detenerFondoJuego();
@@ -189,7 +214,10 @@ export default function App() {
   }
 
   function respuestaIncorrecta() {
-    reproducirEfecto("/audio/reintento.mp3", 1);
+    reproducirSecuenciaEfectos([
+      "/audio/reintento.mp3",
+      "/audio/error.wav",
+    ], 1);
   }
 
   function pasarSiguiente() {
@@ -287,4 +315,5 @@ export default function App() {
     </>
   );
 }
+
 
