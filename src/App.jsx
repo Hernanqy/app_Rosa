@@ -221,6 +221,17 @@ export default function App() {
   }
 
   function respuestaIncorrecta() {
+    const esIphone =
+      /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    detenerEfectoAudio();
+
+    if (esIphone) {
+      reproducirEfecto("/audio/error.mp3", 1);
+      return;
+    }
+
     reproducirEfecto("/audio/reintento.mp3", 1);
 
     setTimeout(() => {
@@ -336,6 +347,7 @@ export default function App() {
     </>
   );
 }
+
 
 
 
