@@ -199,10 +199,21 @@ export default function App() {
     const numeroPistaResuelta = pistaActual + 1;
 
     detenerAudioActual();
-    reproducirEfecto("/audio/exito.mp3", 1);
+    detenerEfectoAudio();
 
     setCodigoEncontrado((prev) => [...prev, pista.respuestaCorrecta]);
     setPantalla("exito");
+
+    const esIphone =
+      /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    if (esIphone) {
+      reproducirAudio(`/audio/l${numeroPistaResuelta}.mp3`);
+      return;
+    }
+
+    reproducirEfecto("/audio/exito.mp3", 1);
 
     setTimeout(() => {
       reproducirAudio(`/audio/l${numeroPistaResuelta}.mp3`);
@@ -325,6 +336,7 @@ export default function App() {
     </>
   );
 }
+
 
 
 
