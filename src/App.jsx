@@ -214,10 +214,11 @@ export default function App() {
   }
 
   function respuestaIncorrecta() {
-    reproducirSecuenciaEfectos([
-      "/audio/reintento.mp3",
-      "/audio/error.wav",
-    ], 1);
+    reproducirEfecto("/audio/reintento.mp3", 1);
+
+    setTimeout(() => {
+      reproducirEfecto("/audio/error.wav", 1);
+    }, 1600);
   }
 
   function pasarSiguiente() {
@@ -315,5 +316,6 @@ export default function App() {
     </>
   );
 }
+
 
 
