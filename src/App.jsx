@@ -205,7 +205,7 @@ export default function App() {
     setPantalla("exito");
 
     setTimeout(() => {
-      reproducirAudio(`/audio/l${numeroPistaResuelta}.wav`);
+      reproducirAudio(`/audio/l${numeroPistaResuelta}.mp3`);
     }, 1200);
   }
 
@@ -246,7 +246,7 @@ export default function App() {
   }
 
   function repetirAudioLogroPista() {
-    reproducirAudio(`/audio/l${pistaActual + 1}.wav`);
+    reproducirAudio(`/audio/l${pistaActual + 1}.mp3`);
   }
 
   function finalizarPorError() {
@@ -325,5 +325,7 @@ export default function App() {
     </>
   );
 }
+
+
 
 
