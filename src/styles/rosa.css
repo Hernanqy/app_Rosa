@@ -715,3 +715,66 @@ input:focus {
   font-size: 1.55rem;
   min-width: 90px;
 }
+
+.timer-wide-box {
+  padding: 10px 14px;
+  margin: 18px 0 24px;
+  background: rgba(255, 252, 244, 0.76);
+}
+
+.timer-wide-box .active-timer-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.timer-wide-box span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 118px;
+  padding: 8px 14px 6px;
+  border-radius: 16px;
+  font-family: "Special Elite", serif;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff4df;
+  background:
+    linear-gradient(180deg, rgba(122, 47, 37, 0.96), rgba(73, 38, 27, 0.98));
+  border: 2px solid rgba(255, 226, 160, 0.7);
+  box-shadow:
+    0 5px 12px rgba(43, 33, 24, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.32);
+}
+
+.timer-wide-box {
+  width: fit-content;
+  margin: 14px auto 24px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.timer-wide-box .active-timer-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 3px 4px rgba(43, 33, 24, 0.25));
+}
+
+.timer-wide-box span {
+  min-width: 122px;
+  padding: 8px 14px 6px;
+  border-radius: 14px;
+  font-size: 2rem;
+  background:
+    linear-gradient(180deg, rgba(122, 47, 37, 0.98), rgba(73, 38, 27, 0.98));
+  color: #fff4df;
+  border: 2px solid rgba(255, 226, 160, 0.7);
+  box-shadow:
+    0 5px 12px rgba(43, 33, 24, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
