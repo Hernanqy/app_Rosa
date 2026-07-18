@@ -670,3 +670,48 @@ input:focus {
 .audio-btn:hover {
   filter: brightness(1.04);
 }
+
+.timer-wide-box {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 18px 0 22px;
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 999px;
+  background: rgba(255, 252, 244, 0.84);
+  border: 1px solid rgba(122, 77, 43, 0.32);
+  box-shadow: 0 5px 12px rgba(43, 33, 24, 0.12);
+}
+
+.timer-wide-box span {
+  font-family: "Special Elite", serif;
+  font-size: 1.35rem;
+  color: #7a2f25;
+  font-weight: 800;
+  min-width: 75px;
+  text-align: center;
+}
+
+.audio-btn-after-text {
+  margin: 16px 0 18px;
+}
+
+.timer-wide-box {
+  padding: 14px 18px;
+  margin: 20px 0 24px;
+  gap: 13px;
+}
+
+.timer-wide-box .active-timer-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.timer-wide-box span {
+  font-size: 1.55rem;
+  min-width: 90px;
+}

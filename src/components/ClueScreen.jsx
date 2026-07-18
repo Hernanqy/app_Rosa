@@ -4,6 +4,7 @@ export default function ClueScreen({
   pista,
   onCorrectAnswer,
   onIncorrectAnswer,
+  onFinalIncorrectAnswer,
   onGameOver,
   pistaActual,
   totalPistas,
@@ -41,20 +42,24 @@ export default function ClueScreen({
       return;
     }
 
-    onIncorrectAnswer();
-
     const nuevosIntentos = intentos + 1;
     setIntentos(nuevosIntentos);
 
     if (nuevosIntentos >= maxIntentos) {
+      onFinalIncorrectAnswer();
+      setMensajeError("Se agotaron los intentos. La habitación deberá esperar una nueva oportunidad.");
+
       setTimeout(() => {
         onGameOver();
-      }, 500);
+      }, 900);
+
       return;
     }
 
+    onIncorrectAnswer();
+
     setMensajeError(
-      "Respuesta incorrecta. Atención: te queda un último intento para resolver esta pista."
+      "Casi lo logran. Vuelvan a mirar con atención: todavía queda una oportunidad para descubrir la respuesta correcta."
     );
 
     setRespuesta("");
@@ -75,7 +80,10 @@ export default function ClueScreen({
           </span>
         </div>
 
-        <div className="active-timer-box">
+        <h1>{pista.titulo}</h1>
+        <h2>{pista.subtitulo}</h2>
+
+        <div className="timer-wide-box">
           <img
             src="/img/timer-20.png"
             alt="Tiempo restante"
@@ -84,16 +92,13 @@ export default function ClueScreen({
           <span>{formatearTiempo(segundosRestantes)}</span>
         </div>
 
-        <h1>{pista.titulo}</h1>
-        <h2>{pista.subtitulo}</h2>
-
-        <button className="audio-btn" onClick={onRepeatAudio}>
-          Repetir audio de la pista
-        </button>
-
         <div className="clue-text">
           <p>{pista.texto}</p>
         </div>
+
+        <button className="audio-btn audio-btn-after-text" onClick={onRepeatAudio}>
+          Repetir audio de la pista
+        </button>
 
         <div className="question-card">
           <p>{pista.pregunta}</p>
@@ -115,7 +120,7 @@ export default function ClueScreen({
 
         {mensajeError && (
           <div className="error-box">
-            <strong>Error</strong>
+            <strong>Atención</strong>
             <p>{mensajeError}</p>
           </div>
         )}
