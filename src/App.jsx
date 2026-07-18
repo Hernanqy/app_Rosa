@@ -124,11 +124,11 @@ export default function App() {
     });
   }
 
-  function reproducirEfecto(ruta) {
+  function reproducirEfecto(ruta, volumen = 1) {
     detenerEfectoAudio();
 
     const audio = new Audio(ruta);
-    audio.volume = 0.85;
+    audio.volume = volumen;
     efectoAudioRef.current = audio;
 
     audio.play().catch((error) => {
@@ -172,17 +172,24 @@ export default function App() {
   }
 
   function respuestaCorrecta() {
-    reproducirEfecto("/audio/exito.wav");
+    const numeroPistaResuelta = pistaActual + 1;
 
+    detenerAudioActual();
+
+    // Sonido inmediato cuando el usuario pone la respuesta correcta.
+    reproducirEfecto("/audio/exito.mp3", 1);
+
+    setCodigoEncontrado((prev) => [...prev, pista.respuestaCorrecta]);
+    setPantalla("exito");
+
+    // Esperamos un poco para que el éxito se escuche antes del audio l1/l2/l3/l4.
     setTimeout(() => {
-      detenerAudioActual();
-      setCodigoEncontrado((prev) => [...prev, pista.respuestaCorrecta]);
-      setPantalla("exito");
-    }, 350);
+      reproducirAudio(`/audio/l${numeroPistaResuelta}.wav`);
+    }, 1200);
   }
 
   function respuestaIncorrecta() {
-    reproducirEfecto("/audio/reintento.wav");
+    reproducirEfecto("/audio/reintento.mp3", 1);
   }
 
   function pasarSiguiente() {
@@ -205,6 +212,10 @@ export default function App() {
 
   function repetirAudioPista() {
     reproducirAudio(`/audio/pista-${pistaActual + 1}.wav`);
+  }
+
+  function repetirAudioLogroPista() {
+    reproducirAudio(`/audio/l${pistaActual + 1}.wav`);
   }
 
   function finalizarPorError() {
@@ -258,6 +269,7 @@ export default function App() {
           pista={pista}
           esUltima={pistaActual === pistas.length - 1}
           onNext={pasarSiguiente}
+          onRepeatSuccessAudio={repetirAudioLogroPista}
         />
       )}
 
@@ -275,3 +287,4 @@ export default function App() {
     </>
   );
 }
+
