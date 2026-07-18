@@ -14,6 +14,7 @@ export default function ClueScreen({
   const [respuesta, setRespuesta] = useState("");
   const [intentos, setIntentos] = useState(0);
   const [mensajeError, setMensajeError] = useState("");
+  const [bloqueado, setBloqueado] = useState(false);
 
   const maxIntentos = 2;
 
@@ -34,6 +35,8 @@ export default function ClueScreen({
   function validarRespuesta(e) {
     e.preventDefault();
 
+    if (bloqueado) return;
+
     const respuestaUsuario = normalizarRespuesta(respuesta);
     const respuestaCorrecta = normalizarRespuesta(pista.respuestaCorrecta);
 
@@ -44,25 +47,33 @@ export default function ClueScreen({
 
     const nuevosIntentos = intentos + 1;
     setIntentos(nuevosIntentos);
+    setRespuesta("");
 
     if (nuevosIntentos >= maxIntentos) {
-      onFinalIncorrectAnswer();
-      setMensajeError("Se agotaron los intentos. La habitación deberá esperar una nueva oportunidad.");
+      setBloqueado(true);
 
-      setTimeout(() => {
+      setMensajeError(
+        "Se agotaron los intentos. La habitación deberá esperar una nueva oportunidad."
+      );
+
+      if (onFinalIncorrectAnswer) {
+        onFinalIncorrectAnswer();
+      }
+
+      if (onGameOver) {
         onGameOver();
-      }, 900);
+      }
 
       return;
     }
 
-    onIncorrectAnswer();
+    if (onIncorrectAnswer) {
+      onIncorrectAnswer();
+    }
 
     setMensajeError(
       "Casi lo logran. Vuelvan a mirar con atención: todavía queda una oportunidad para descubrir la respuesta correcta."
     );
-
-    setRespuesta("");
   }
 
   return (
@@ -96,7 +107,11 @@ export default function ClueScreen({
           <p>{pista.texto}</p>
         </div>
 
-        <button className="audio-btn audio-btn-after-text" onClick={onRepeatAudio}>
+        <button
+          className="audio-btn audio-btn-after-text"
+          onClick={onRepeatAudio}
+          disabled={bloqueado}
+        >
           Repetir audio de la pista
         </button>
 
@@ -110,9 +125,10 @@ export default function ClueScreen({
               onChange={(e) => setRespuesta(e.target.value)}
               placeholder="Escribí tu respuesta"
               inputMode="numeric"
+              disabled={bloqueado}
             />
 
-            <button className="primary-btn" type="submit">
+            <button className="primary-btn" type="submit" disabled={bloqueado}>
               Comprobar respuesta
             </button>
           </form>
@@ -133,3 +149,5 @@ export default function ClueScreen({
     </main>
   );
 }
+
+

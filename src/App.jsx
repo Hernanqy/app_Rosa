@@ -26,6 +26,7 @@ export default function App() {
   const fondoJuegoRef = useRef(null);
   const audioActualRef = useRef(null);
   const efectoAudioRef = useRef(null);
+  const gameOverAudioRef = useRef(null);
 
   const pista = pistas[pistaActual];
 
@@ -112,6 +113,14 @@ export default function App() {
     efectoAudioRef.current = null;
   }
 
+  function detenerGameOverAudio() {
+    if (!gameOverAudioRef.current) return;
+
+    gameOverAudioRef.current.pause();
+    gameOverAudioRef.current.currentTime = 0;
+    gameOverAudioRef.current = null;
+  }
+
   function reproducirAudio(ruta) {
     detenerAudioActual();
 
@@ -136,29 +145,16 @@ export default function App() {
     });
   }
 
-  function reproducirSecuenciaEfectos(rutas, volumen = 1) {
-    detenerEfectoAudio();
+  function reproducirAudioGameOver() {
+    detenerGameOverAudio();
 
-    let indice = 0;
+    const audio = new Audio("/audio/juego-terminado.mp3");
+    audio.volume = 1;
+    gameOverAudioRef.current = audio;
 
-    function reproducirSiguiente() {
-      if (indice >= rutas.length) return;
-
-      const audio = new Audio(rutas[indice]);
-      audio.volume = volumen;
-      efectoAudioRef.current = audio;
-
-      audio.onended = () => {
-        indice += 1;
-        reproducirSiguiente();
-      };
-
-      audio.play().catch((error) => {
-        console.log("No se pudo reproducir el efecto:", rutas[indice], error);
-      });
-    }
-
-    reproducirSiguiente();
+    audio.play().catch((error) => {
+      console.log("No se pudo reproducir juego-terminado.mp3:", error);
+    });
   }
 
   function detenerTodosLosAudios() {
@@ -166,11 +162,13 @@ export default function App() {
     detenerFondoJuego();
     detenerAudioActual();
     detenerEfectoAudio();
+    detenerGameOverAudio();
   }
 
   function entrarPresentacion() {
     detenerMusicaIntro();
     detenerFondoJuego();
+    detenerGameOverAudio();
     reproducirAudio("/audio/intro.wav");
 
     setPantalla("inicio");
@@ -186,6 +184,7 @@ export default function App() {
 
   function iniciarJuego() {
     detenerMusicaIntro();
+    detenerGameOverAudio();
     reproducirFondoJuego();
     reproducirAudio("/audio/pista-1.wav");
 
@@ -200,14 +199,11 @@ export default function App() {
     const numeroPistaResuelta = pistaActual + 1;
 
     detenerAudioActual();
-
-    // Sonido inmediato cuando el usuario pone la respuesta correcta.
     reproducirEfecto("/audio/exito.mp3", 1);
 
     setCodigoEncontrado((prev) => [...prev, pista.respuestaCorrecta]);
     setPantalla("exito");
 
-    // Esperamos un poco para que el éxito se escuche antes del audio l1/l2/l3/l4.
     setTimeout(() => {
       reproducirAudio(`/audio/l${numeroPistaResuelta}.wav`);
     }, 1200);
@@ -217,8 +213,14 @@ export default function App() {
     reproducirEfecto("/audio/reintento.mp3", 1);
 
     setTimeout(() => {
-      reproducirEfecto("/audio/error.wav", 1);
+      reproducirEfecto("/audio/error.mp3", 1);
     }, 1600);
+  }
+
+  function respuestaIncorrectaFinal() {
+    detenerAudioActual();
+    detenerFondoJuego();
+    detenerEfectoAudio();
   }
 
   function pasarSiguiente() {
@@ -249,8 +251,14 @@ export default function App() {
 
   function finalizarPorError() {
     setTimerActivo(false);
-    detenerTodosLosAudios();
+    detenerAudioActual();
+    detenerFondoJuego();
+
     setPantalla("gameover");
+
+    setTimeout(() => {
+      reproducirAudioGameOver();
+    }, 250);
   }
 
   function reiniciarJuego() {
@@ -288,6 +296,7 @@ export default function App() {
           segundosRestantes={segundosRestantes}
           onCorrectAnswer={respuestaCorrecta}
           onIncorrectAnswer={respuestaIncorrecta}
+          onFinalIncorrectAnswer={respuestaIncorrectaFinal}
           onGameOver={finalizarPorError}
           onRepeatAudio={repetirAudioPista}
         />
@@ -316,6 +325,4 @@ export default function App() {
     </>
   );
 }
-
-
 
